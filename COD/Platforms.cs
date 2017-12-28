@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace COD
 {
-    public class Class1
-    {
-    }
+	public enum Platform
+	{
+		PSN,
+		XB1,
+		PC
+	}
 }

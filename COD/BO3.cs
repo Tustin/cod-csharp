@@ -81,13 +81,19 @@ namespace COD
 				|| mode == Gamemode.Uplink;
 		}
 
+		/// <summary>
+		/// Get a user's profile and stats.
+		/// </summary>
+		/// <param name="platform">Platform the user is on</param>
+		/// <param name="username">Username of the user</param>
+		/// <returns>Profile data</returns>
 		public static Profile.Data GetProfile(Platform platform, string username)
 		{
 			using (var client = new HttpClient())
 			{
 				var response = client.GetAsync($"{Utilities.BO3_URL}platform/{platform.GetDescription()}/gamer/{username}/profile/").Result;
 
-				if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}"); //TODO: Use proper exception
+				if (response.StatusCode != HttpStatusCode.OK) throw new Exception($"Bad response {response.StatusCode}");
 
 				var responseData = response.Content.ReadAsStringAsync().Result;
 
@@ -105,6 +111,7 @@ namespace COD
 		/// </summary>
 		/// <param name="platform">Platform to get leaderboards for</param>
 		/// <param name="time">Length of time to return leaderboard data for</param>
+		/// <param name="type">Type of mode to search for</param>
 		/// <param name="mode">Gamemode to get leaderboard data for</param>
 		/// <param name="page">Page to fetch</param>
 		/// <returns>Leaderboard data</returns>
@@ -137,6 +144,7 @@ namespace COD
 		/// </summary>
 		/// <param name="platform">Platform to get leaderboards for</param>
 		///	<param name="time">Length of time to return leaderboard data for</param>
+		/// <param name="type">Type of mode to search for</param>
 		/// <param name="mode">Gamemode to get leaderboard data for</param>
 		/// <param name="username">User to find on leaderboards</param>
 		/// <returns>Leaderboard data</returns>
